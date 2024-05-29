@@ -50,7 +50,7 @@ jobs:
   Production: 
     needs:
       - LoadTest
-      - Test
+      - test
     if: needs.test.success == true and needs.LoadTest.success == true
     environment:
       name: Production
@@ -62,7 +62,5 @@ jobs:
     steps:
       - name: Display testing
         uses: echo "step ${{ matrix.number }} deploying"
-        - name: sleep for 15 seconds
-        run: sleep 10s
-
-    
+      - name: sleep for 15 seconds
+        run: sleep 10s    
