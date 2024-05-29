@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Display testing
-        uses: echo "Testing........."
+        run: echo "Testing........."
   LoadTest:
     needs: build
     if: needs.build.success == true and github.event_name == 'workflow_dispatch'
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Display testing
-        uses: echo "Testing........."
+        run: echo "Testing........."
       - name: sleep for 15 seconds
         run: sleep 15s
   Production: 
@@ -61,6 +61,6 @@ jobs:
         number: [1,2,3,4,5]
     steps:
       - name: Display testing
-        uses: echo "step ${{ matrix.number }} deploying"
+        run: echo "step ${{ matrix.number }} deploying"
       - name: sleep for 15 seconds
         run: sleep 10s    
