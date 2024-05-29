@@ -58,9 +58,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        number: [1,2,3,4,5]
+        number: [1, 2, 3, 4, 5]
     steps:
       - name: Display testing
         run: echo "step ${{ matrix.number }} deploying"
       - name: sleep for 15 seconds
-        run: sleep 10s    
+        run: sleep 10s
