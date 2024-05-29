@@ -54,8 +54,7 @@ jobs:
     if: needs.test.success == true and needs.LoadTest.success == true
     environment:
       name: Production
-      url: https://writeabout.net
-    runs-on: ubuntu-latest
+      url: https://writeabout.net    
     strategy:
       matrix: 
         number:
@@ -64,6 +63,7 @@ jobs:
           - 3
           - 4
           - 5
+    runs-on: ubuntu-latest
     steps:
       - name: Display testing
         run: echo "step ${{ matrix.number }} deploying"
