@@ -3,6 +3,9 @@ on:
   schedule:
     - cron: "15 8 * * 0"
   workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
   push:
     branches:
       - main
@@ -26,3 +29,40 @@ jobs:
           echo "${{ github.ref_name }}"
       - name: List all file in the environemnt
         run: ls
+  test:
+    needs: build
+    if: needs.build.success == true and github.event_name == 'workflow_dispatch'
+    environment: Test 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display testing
+        uses: echo "Testing........."
+  LoadTest:
+    needs: build
+    if: needs.build.success == true and github.event_name == 'workflow_dispatch'
+    environment: Load-Test 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display testing
+        uses: echo "Testing........."
+      - name: sleep for 15 seconds
+        run: sleep 15s
+  Production: 
+    needs:
+      - LoadTest
+      - Test
+    if: needs.test.success == true and needs.LoadTest.success == true
+    environment:
+      name: Production
+      url: https://writeabout.net
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        number: [1,2,3,4,5]
+    steps:
+      - name: Display testing
+        uses: echo "step ${{ matrix.number }} deploying"
+        - name: sleep for 15 seconds
+        run: sleep 10s
+
+    
