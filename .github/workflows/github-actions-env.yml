@@ -31,7 +31,7 @@ jobs:
         run: ls
   test:
     needs: build
-    if: needs.build.success == true and github.event_name == 'workflow_dispatch'
+    if: needs.build.success == true && github.event_name == 'workflow_dispatch'
     environment: Test 
     runs-on: ubuntu-latest
     steps:
@@ -39,7 +39,7 @@ jobs:
         run: echo "Testing........."
   LoadTest:
     needs: build
-    if: needs.build.success == true and github.event_name == 'workflow_dispatch'
+    if: needs.build.success == true && github.event_name == 'workflow_dispatch'
     environment: Load-Test 
     runs-on: ubuntu-latest
     steps:
@@ -51,7 +51,7 @@ jobs:
     needs:
       - LoadTest
       - test
-    if: needs.test.success == true and needs.LoadTest.success == true
+    if: needs.test.success == true && needs.LoadTest.success == true
     environment:
       name: Production
       url: https://writeabout.net    
